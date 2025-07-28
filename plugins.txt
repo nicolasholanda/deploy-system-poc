@@ -3,3 +3,4 @@ workflow-aggregator
 docker-workflow
 blueocean
 shiningpanda
+kubernetes-cli
