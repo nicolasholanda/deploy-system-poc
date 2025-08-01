@@ -1,1 +1,13 @@
-*kubeconfig.yaml
+# Kubernetes configuration files
+**/*kubeconfig*
+*.kubeconfig
+kubeconfig
+.kube/config
+
+# Generated secrets and tokens
+**/jenkins-robot.kubeconfig
+**/jenkins-robot-secret*
+
+# Temporary files
+*.tmp
+*.temp
