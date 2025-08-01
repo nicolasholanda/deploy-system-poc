@@ -5,7 +5,7 @@ metadata:
   namespace: infra
 rules:
 - apiGroups: [""]
-  resources: ["pods", "pods/log", "services", "endpoints", "persistentvolumeclaims", "events", "configmaps", "secrets"]
+  resources: ["pods", "pods/log", "services", "endpoints", "persistentvolumeclaims", "events", "configmaps", "secrets", "serviceaccounts"]
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 - apiGroups: ["apps"]
   resources: ["deployments", "daemonsets", "replicasets", "statefulsets"]
@@ -16,3 +16,50 @@ rules:
 - apiGroups: ["rbac.authorization.k8s.io"]
   resources: ["roles", "rolebindings"]
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jenkins-robot-rolebinding
+  namespace: infra
+subjects:
+- kind: ServiceAccount
+  name: jenkins-robot
+  namespace: infra
+roleRef:
+  kind: Role
+  name: jenkins-robot-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: jenkins-robot-role-apps
+  namespace: apps
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/log", "services", "endpoints", "persistentvolumeclaims", "events", "configmaps", "secrets", "serviceaccounts"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "daemonsets", "replicasets", "statefulsets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["roles", "rolebindings"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jenkins-robot-rolebinding-apps
+  namespace: apps
+subjects:
+- kind: ServiceAccount
+  name: jenkins-robot
+  namespace: infra
+roleRef:
+  kind: Role
+  name: jenkins-robot-role-apps
+  apiGroup: rbac.authorization.k8s.io
