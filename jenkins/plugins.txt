@@ -1,7 +1,6 @@
-kubernetes:1.31.8
-workflow-aggregator:2.6
-git:5.0.0
-docker-workflow:1.28
-blueocean:1.27.3
-shiningpanda:1.0.0
-kubernetes-cli:1.12.0
+kubernetes
+workflow-aggregator
+git
+docker-workflow
+blueocean
+kubernetes-cli
