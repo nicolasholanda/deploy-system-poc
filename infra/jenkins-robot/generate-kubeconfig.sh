@@ -10,6 +10,7 @@ echo "Creating Kubernetes resources..."
 kubectl apply -f serviceaccount.yaml
 kubectl apply -f role.yaml
 kubectl apply -f rolebinding.yaml
+kubectl apply -f clusterrole.yaml
 
 echo "Creating permanent service account token secret..."
 kubectl apply -f secret.yaml
