@@ -21,7 +21,6 @@ sleep 3
 echo "Getting cluster information..."
 CLUSTER_NAME=$(kubectl config view -o jsonpath='{.clusters[0].name}')
 CLUSTER_SERVER=$(kubectl config view -o jsonpath='{.clusters[0].cluster.server}')
-=
 USER_TOKEN=$(kubectl get secret jenkins-robot-secret -n $NAMESPACE -o jsonpath='{.data.token}' | base64 -d)=
 CLUSTER_CA=$(kubectl get secret jenkins-robot-secret -n $NAMESPACE -o jsonpath='{.data.ca\.crt}')
 
